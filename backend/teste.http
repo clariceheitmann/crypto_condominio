@@ -1,0 +1,64 @@
+@baseUrl = http://localhost:3000
+
+GET {{baseUrl}}
+
+### Cadastrar funcionário
+POST {{baseUrl}}/funcionario
+Content-Type: application/json
+
+{
+    "nome": "Oliver",
+    "email": "oliver@gmail.com",
+    "senha": "123"
+}
+
+### Realizar login
+# @name loginReq
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "oliver@gmail.com",
+    "senha": "123"
+}
+
+### Cadastrar condominio
+POST {{baseUrl}}/condominio
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Dourado",
+    "cnpj": "123"
+}
+
+### Consultar condominio pelo nome
+GET {{baseUrl}}/condominio/buscar/dourado
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+### Consultar condominio pelo código
+GET {{baseUrl}}/condominio/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+### Listar condominio
+GET {{baseUrl}}/condominios
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+### Atualizar condominio
+PUT {{baseUrl}}/condominio/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Dourado",
+    "cnpj": "12345"
+}
+
+### Apagar condominio
+DELETE {{baseUrl}}/condominio/2
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
